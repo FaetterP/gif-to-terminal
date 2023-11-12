@@ -4,7 +4,7 @@ import { convertFrames, extract } from "./image";
 const app = express();
 
 (async () => {
-  // await extract();
+  await extract();
   const frames = await convertFrames();
 
   app.get("/", function (req, res) {

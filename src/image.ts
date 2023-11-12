@@ -3,11 +3,14 @@ import asciify from "asciify-image";
 import fs from "fs";
 
 export async function extract() {
+  console.log("Start extracted frames from gif");
+
   const results = await extractFrames({
     input: `${__dirname}/../giphy.gif`,
     output: `${__dirname}/../frames/frame-%d.png`,
   });
-  //   console.log(results)
+
+  console.log(`Extract ${results.shape[0]} frames.`);
 }
 
 export async function convertFrames(): Promise<string[]> {
