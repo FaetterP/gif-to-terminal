@@ -15,9 +15,10 @@ const app = express();
     let index = 0;
 
     return setInterval(() => {
+      stream.push("\x1b[2J\n");
       stream.push(frames[index]);
       index = (index + 1) % frames.length;
-    }, 1000);
+    }, 100);
   });
 
   app.listen(3000, () => {
