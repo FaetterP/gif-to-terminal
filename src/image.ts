@@ -7,7 +7,7 @@ export async function extract() {
 
   const results = await extractFrames({
     input: `${__dirname}/../giphy.gif`,
-    output: `${__dirname}/../frames/frame-%d.png`,
+    output: `${__dirname}/../frames/%d.png`,
   });
 
   console.log(`Extract ${results.shape[0]} frames.`);
@@ -15,7 +15,9 @@ export async function extract() {
 
 export async function convertFrames(): Promise<string[]> {
   const ret: string[] = [];
-  const files: string[] = fs.readdirSync(`${__dirname}/../frames`);
+  const files: string[] = fs
+    .readdirSync(`${__dirname}/../frames`)
+    .sort((a, b) => Number(a.slice(0, -4)) - Number(b.slice(0, -4)));
 
   for (const file of files) {
     console.log(`Converting '${file}'`);
