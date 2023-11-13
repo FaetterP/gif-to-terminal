@@ -1,32 +1,19 @@
-import express from "express";
-import { Readable } from "stream";
-import { convertFrames, extract } from "./image";
+import { convertFrames, extractFrames } from "./image";
 import fs from "fs";
+import { buildServer } from "./server";
+import { config } from "./config";
 
-const app = express();
+const port = config.port;
 
 (async () => {
-  fs.rmSync(`${__dirname}/../frames`, { force: true, recursive: true });
-  fs.mkdirSync(`${__dirname}/../frames`);
+  fs.rmSync(config.outputDir, { force: true, recursive: true });
+  fs.mkdirSync(config.outputDir);
 
-  await extract();
+  await extractFrames();
   const frames = await convertFrames();
 
-  app.get("/", function (req, res) {
-    const stream = new Readable();
-    stream._read = function noop() {};
-    stream.pipe(res);
-
-    let index = 0;
-
-    return setInterval(() => {
-      stream.push("\x1b[2J\x1b[H");
-      stream.push(frames[index]);
-      index = (index + 1) % frames.length;
-    }, 50);
-  });
-
-  app.listen(3000, () => {
-    console.log("Server started on port 3000");
+  const app = buildServer(frames);
+  app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
   });
 })();

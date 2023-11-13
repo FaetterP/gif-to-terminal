@@ -1,0 +1,9 @@
+{
+  "gifPath": "/giphy.gif",
+  "size": 50,
+  "color": true,
+  "outputDir": "/frames",
+
+  "port": 3000,
+  "delay": 20
+}

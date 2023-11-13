@@ -1,33 +1,35 @@
-import extractFrames from "gif-extract-frames";
+import extract from "gif-extract-frames";
 import asciify from "asciify-image";
 import fs from "fs";
+import { config } from "./config";
 
-export async function extract() {
-  console.log("Start extracted frames from gif");
+export async function extractFrames() {
+  console.log("Start extracting frames from gif");
 
-  const results = await extractFrames({
-    input: `${__dirname}/../giphy.gif`,
-    output: `${__dirname}/../frames/%d.png`,
+  const results = await extract({
+    input: config.gifPath,
+    output: `${config.outputDir}/%d.png`,
   });
 
-  console.log(`Extract ${results.shape[0]} frames.`);
+  console.log(`Extracted ${results.shape[0]} frames.`);
 }
 
 export async function convertFrames(): Promise<string[]> {
   const ret: string[] = [];
   const files: string[] = fs
-    .readdirSync(`${__dirname}/../frames`)
+    .readdirSync(config.outputDir)
     .sort((a, b) => Number(a.slice(0, -4)) - Number(b.slice(0, -4)));
 
   for (const file of files) {
     console.log(`Converting '${file}'`);
 
-    const result = await asciify(`${__dirname}/../frames/${file}`, {
+    const { color, size } = config;
+    const result = await asciify(`${config.outputDir}/${file}`, {
       fit: "box",
-      width: 30,
-      height: 30,
+      color,
+      height: size,
+      width: size,
     });
-
     ret.push(result as string);
   }
 
