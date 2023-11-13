@@ -1,9 +1,14 @@
 import express from "express";
 import { Readable } from "stream";
 import { convertFrames, extract } from "./image";
+import fs from "fs";
+
 const app = express();
 
 (async () => {
+  fs.rmSync(`${__dirname}/../frames`, { force: true, recursive: true });
+  fs.mkdirSync(`${__dirname}/../frames`);
+
   await extract();
   const frames = await convertFrames();
 
