@@ -4,8 +4,8 @@ Run server and print any gif in terminal using curl.
 Inspired by [parrot.live](https://github.com/hugomd/parrot.live).
 
 [original gif](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHRodHRkMXdmdDgxdG5udmFrNGtyOThoNmJhbTd0cDR3ZGJ6cGNodiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QUeB3UcEX4KeYXPTzO/giphy.gif)  
-Animation output:  
-![image](https://github.com/FaetterP/gif-to-terminal/assets/56697273/2c4a624b-28c3-403f-8553-cbd62f7e635b)
+Animated output:  
+![demo](https://github.com/FaetterP/gif-to-terminal/assets/56697273/4767970e-d66f-4600-82c9-cdd53cb88e83)
 
 ## Prepare
 
